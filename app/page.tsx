@@ -204,9 +204,19 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-border">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-sm text-muted-foreground">
-          <p>AgendaKit Demo • Sistema de Agendamento Profissional</p>
+      <footer className="border-t border-zinc-800 py-8 mt-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-muted-foreground text-sm">
+          <p>AgendaKit © 2026 • Desenvolvido por GustaDev</p>
+          <p className="mt-2">
+            <a
+              href="https://wa.me/5561998031185"
+              className="hover:text-foreground transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Falar com desenvolvedor
+            </a>
+          </p>
         </div>
       </footer>
     </div>

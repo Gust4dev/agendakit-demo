@@ -151,3 +151,69 @@ export function getAvailableProfessionals(
         (p) => !isSlotBlocked(date, time, p.id)
     );
 }
+
+// Nomes fake para exibir nos slots ocupados
+const fakeClients = [
+    "Maria R.",
+    "João P.",
+    "Ana S.",
+    "Pedro L.",
+    "Carla M.",
+    "Lucas F.",
+    "Fernanda O.",
+    "Bruno C.",
+];
+
+/**
+ * Retorna o nome do cliente fake que ocupou o slot (para exibição visual)
+ */
+export function getBlockedSlotClient(
+    date: Date,
+    time: string,
+    professionalId: number
+): string | null {
+    if (!isSlotBlocked(date, time, professionalId)) return null;
+
+    const dateStr = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    const key = `${dateStr}-${time}-${professionalId}-client`;
+
+    let hash = 0;
+    for (let i = 0; i < key.length; i++) {
+        const char = key.charCodeAt(i);
+        hash = (hash << 5) - hash + char;
+        hash = hash & hash;
+    }
+
+    return fakeClients[Math.abs(hash) % fakeClients.length];
+}
+
+/**
+ * Conta slots ocupados/disponíveis para uma data
+ */
+export function getSlotStats(
+    date: Date,
+    professionalId?: number
+): { available: number; occupied: number } {
+    const times = [
+        "08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
+        "11:00", "11:30", "14:00", "14:30", "15:00", "15:30",
+        "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"
+    ];
+
+    let available = 0;
+    let occupied = 0;
+
+    times.forEach((time) => {
+        const blocked = professionalId
+            ? isSlotBlocked(date, time, professionalId)
+            : professionals.some((p) => isSlotBlocked(date, time, p.id));
+
+        if (blocked) {
+            occupied++;
+        } else {
+            available++;
+        }
+    });
+
+    return { available, occupied };
+}

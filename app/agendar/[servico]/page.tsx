@@ -4,8 +4,7 @@ import { useState, use } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { CalendarGrid } from "@/components/calendar-grid";
-import { TimeSlotPicker } from "@/components/time-slot-picker";
+import { SchedulePicker } from "@/components/schedule-picker";
 import { ProfessionalSelector } from "@/components/professional-selector";
 import { BookingForm } from "@/components/booking-form";
 import { useToast } from "@/components/ui/toast";
@@ -206,17 +205,12 @@ export default function AgendarPage({ params }: PageProps) {
         <div className="space-y-8">
           {/* Step 1: Date & Time */}
           {step === 1 && (
-            <div className="grid lg:grid-cols-2 gap-8">
-              <CalendarGrid
-                selectedDate={selectedDate}
-                onSelectDate={handleDateSelect}
-              />
-              <TimeSlotPicker
-                date={selectedDate}
-                selectedTime={selectedTime}
-                onSelectTime={handleTimeSelect}
-              />
-            </div>
+            <SchedulePicker
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              onSelectDate={handleDateSelect}
+              onSelectTime={handleTimeSelect}
+            />
           )}
 
           {/* Step 2: Professional */}
